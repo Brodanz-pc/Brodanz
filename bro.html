@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio Akhdan Yudhistira Adita (Brodanz) - Web Developer, Creator, & Student.">
+    <meta property="og:title" content="Brodanz Portfolio">
+    
+    <title>Brodanz | Official Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- 1. SPIDER-VERSE THEME VARIABLES --- */
+        :root {
+            --spider-red: #ff003c;
+            --spider-blue: #00f7ff;
+            --spider-yellow: #fae700;
+            --spider-purple: #8a00f0;
+
+            /* MODE TERANG */
+            --bg: #ffffff;
+            --text: #0a0a12;
+            --card-bg: #f5f5f5;
+            --border-color: #0a0a12;
+            --shadow-color: var(--spider-blue);
+            --halftone-color: rgba(0,0,0,0.15); 
+        }
+
+        /* MODE GELAP */
+        [data-theme="dark"] {
+            --bg: #0a0a12;
+            --text: #ffffff;
+            --card-bg: #151520;
+            --border-color: #ffffff;
+            --shadow-color: var(--spider-red);
+            --halftone-color: rgba(255,255,255,0.1); 
+        }
+
+        html { scroll-behavior: smooth; height: 100%; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.4s, color 0.4s, border-color 0.4s, box-shadow 0.4s; }
+        
+        /* --- CORE LAYOUT FIX (STICKY FOOTER) --- */
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            background-image: radial-gradient(var(--halftone-color) 2px, transparent 2px);
+            background-size: 24px 24px;
+            
+            /* Flex Column untuk mendorong footer */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            
+            /* Padding agar konten tidak tertutup Navbar Fixed */
+            padding-top: 85px; 
+        }
+
+        /* Wrapper Utama untuk mendorong Footer */
+        .content-wrapper {
+            flex: 1; /* Mengisi ruang kosong yang tersisa */
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        body.loading { overflow: hidden; }
+
+        h1, h2, h3, .comic-font { 
+            font-family: 'Bangers', cursive; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px;
+            line-height: 1.1;
+        }
+
+        /* --- ANIMASI SCROLL (REVEAL) --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- PRELOADER --- */
+        #preloader {
+            position: fixed; inset: 0; background-color: #0a0a12; z-index: 9999;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 0, 60, 0.05) 10px, rgba(255, 0, 60, 0.05) 20px);
+        }
+
+        .loader-spinner {
+            width: 80px; height: 80px; border: 8px solid var(--spider-blue);
+            border-top: 8px solid var(--spider-red); border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
+            box-shadow: 0 0 20px var(--spider-blue);
+        }
+
+        .loader-text {
+            font-family: 'Bangers'; font-size: 2.5rem; color: #fff; letter-spacing: 2px;
+            animation: pulseText 1.5s infinite;
+        }
+        
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulseText {
+            0%, 100% { opacity: 1; text-shadow: 2px 2px 0 var(--spider-red); }
+            50% { opacity: 0.5; text-shadow: -2px -2px 0 var(--spider-blue); }
+        }
+
+        /* --- COMPONENTS --- */
+        .theme-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: var(--card-bg); border: 3px solid var(--border-color);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: var(--text); cursor: pointer; z-index: 1000;
+            box-shadow: 6px 6px 0px var(--shadow-color); transition: 0.3s;
+        }
+        .theme-btn:hover { transform: scale(1.1); box-shadow: 0px 0px 15px var(--spider-purple); }
+
+        .glitch-text:hover { animation: textGlitch 0.3s linear infinite; text-shadow: 3px 3px 0px var(--spider-red), -3px -3px 0px var(--spider-blue); }
+        @keyframes textGlitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+        
+        .comic-box {
+            background: var(--card-bg); border: 3px solid var(--border-color);
+            box-shadow: 8px 8px 0px var(--shadow-color); padding: 30px;
+            height: 100%; transition: 0.3s; position: relative;
+        }
+        .comic-box:hover { 
+            transform: translate(-5px, -5px); 
+            box-shadow: 12px 12px 0px var(--spider-purple); 
+            border-color: var(--spider-yellow); 
+            z-index: 2;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; width: 100%; }
+
+        .btn {
+            display: inline-block; background: var(--text); color: var(--bg);
+            padding: 15px 35px; font-family: 'Bangers'; font-size: 1.3rem;
+            text-decoration: none; border: 3px solid var(--border-color);
+            cursor: pointer; box-shadow: 6px 6px 0px var(--shadow-color);
+            letter-spacing: 1px;
+        }
+        .btn:hover { background: var(--spider-blue); color: #000; box-shadow: 6px 6px 0px var(--spider-purple); transform: translate(-3px, -3px); }
+        .btn-outline { background: transparent; color: var(--text); }
+        .btn-outline:hover { background: var(--card-bg); }
+
+        .badge {
+            display: inline-block; background: var(--text); color: var(--bg);
+            padding: 6px 14px; font-family: 'Bangers'; font-size: 0.9rem; margin: 3px;
+            border: 2px solid var(--border-color); letter-spacing: 1px;
+        }
+        .badge.yellow { background: var(--spider-yellow); color: #000; }
+
+        /* --- NAVBAR FIXED --- */
+        .navbar {
+            background: var(--card-bg); 
+            border-bottom: 4px solid var(--border-color);
+            padding: 15px 0; 
+            position: fixed; 
+            top: 0; left: 0; width: 100%;
+            z-index: 999; 
+            box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+        }
+
+        .nav-wrap { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 2.2rem; font-family: 'Bangers'; text-shadow: 3px 3px 0px var(--spider-red); transform: rotate(-2deg); }
+        
+        .nav-links { display: flex; align-items: center; gap: 25px; }
+        .nav-links a { color: var(--text); text-decoration: none; font-family: 'Bangers'; font-size: 1.5rem; letter-spacing: 1px; position: relative;}
+        
+        .nav-links a:hover { 
+            color: var(--spider-blue); 
+            text-shadow: 2px 2px 0px var(--spider-purple); 
+            transform: scale(1.1);
+        }
+
+        /* Hamburger Menu */
+        .hamburger { display: none; font-size: 2rem; cursor: pointer; color: var(--text); }
+
+        /* Hero */
+        .hero { padding: 100px 0; display: grid; grid-template-columns: 1.5fr 1fr; gap: 50px; align-items: center; }
+        .hero-title { font-size: 5rem; margin-bottom: 20px; line-height: 0.95; }
+        .hero-title span { color: var(--spider-red); text-shadow: 5px 5px 0px var(--spider-blue); display: block;}
+        .hero-desc { font-size: 1.2rem; margin-bottom: 35px; line-height: 1.7; max-width: 90%; }
+        
+        .image-stack { position: relative; width: 100%; height: 400px; display: flex; align-items: center; justify-content: center; }
+        .stack-img {
+            position: absolute; width: 300px; height: 380px; object-fit: cover;
+            border: 4px solid var(--border-color); box-shadow: 12px 12px 0px var(--spider-purple);
+            transition: 0.4s; filter: saturate(120%) contrast(110%);
+        }
+        .stack-img:nth-child(1) { transform: rotate(-6deg); z-index: 1; }
+        .stack-img:nth-child(2) { transform: rotate(6deg); z-index: 2; }
+        .stack-img:hover { transform: scale(1.05) rotate(0deg); z-index: 10; animation: textGlitch 0.2s infinite; box-shadow: 15px 15px 0px var(--spider-red);}
+
+        /* Bento Grid */
+        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 80px; }
+        .col-2 { grid-column: span 2; }
+        .row-2 { grid-row: span 2; }
+        .timeline-item { margin-bottom: 20px; border-left: 5px solid var(--spider-red); padding-left: 20px; position: relative;}
+        .timeline-item::before {
+            content: ''; position: absolute; left: -10px; top: 0; width: 15px; height: 15px; 
+            background: var(--spider-blue); border: 3px solid var(--border-color); border-radius: 50%;
+        }
+        .timeline-year { font-family: 'Bangers'; color: var(--spider-blue); font-size: 1.2rem; margin-bottom: 5px; display: block;}
+
+        /* Tabs */
+        .tabs-container { margin-top: 120px; }
+        .tabs-head { display: flex; justify-content: center; gap: 20px; margin-bottom: 50px; flex-wrap: wrap;}
+        .tab-btn {
+            background: var(--card-bg); border: 3px solid var(--border-color); padding: 12px 40px;
+            font-family: 'Bangers'; font-size: 1.3rem; cursor: pointer; transition: 0.2s;
+            box-shadow: 5px 5px 0px var(--shadow-color); color: var(--text);
+        }
+        .tab-btn.active { background: var(--spider-red); color: #fff; box-shadow: 5px 5px 0px var(--spider-blue); transform: translate(-3px,-3px); }
+        
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .art-card { padding: 30px; background: var(--card-bg); border: 3px solid var(--border-color); box-shadow: 8px 8px 0px var(--shadow-color); transition: 0.3s; }
+        .art-card:hover { transform: translateY(-5px); box-shadow: 12px 12px 0px var(--spider-purple); }
+        .art-card.quote { border-top: 10px solid var(--spider-blue); }
+        .art-card.poem { border-top: 10px solid var(--spider-purple); }
+        .art-content { font-size: 1.15rem; line-height: 1.6; margin-bottom: 20px; font-style: italic; font-weight: bold;}
+
+        /* --- GALLERY FIX (ANTI NABRAK) --- */
+        .gallery-wrap { 
+            margin-top: 120px; 
+            /* Jarak aman di bawah gallery agar tidak ketutup footer */
+            margin-bottom: 100px; 
+            width: 100%;
+        }
+
+        .gallery-grid { 
+            columns: 3 280px; 
+            column-gap: 25px; 
+            width: 100%;
+        }
+
+        .gallery-item { 
+            break-inside: avoid; 
+            margin-bottom: 25px; 
+            position: relative; 
+            cursor: pointer;
+            display: inline-block; 
+            width: 100%;
+        }
+
+        .gallery-img { 
+            width: 100%; 
+            border: 3px solid var(--border-color); 
+            transition: 0.4s; 
+            filter: grayscale(40%); 
+            display: block; 
+        }
+        
+        .gallery-item:hover .gallery-img { 
+            transform: scale(1.02); 
+            filter: grayscale(0%); 
+            z-index: 10; 
+            box-shadow: -8px 8px 0px var(--spider-blue); 
+            border-color: var(--spider-yellow);
+        }
+
+        /* Modal */
+        .modal {
+            display: none; position: fixed; inset: 0; background: rgba(10, 10, 18, 0.95);
+            z-index: 2000; justify-content: center; align-items: center;
+            backdrop-filter: blur(8px); padding: 20px;
+        }
+        .modal-content-wrap {
+            display: flex; flex-direction: column; align-items: center;
+            max-width: 900px; width: 100%;
+            animation: popIn 0.3s ease-out;
+        }
+        @keyframes popIn { 
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .modal img { 
+            max-width: 100%; max-height: 80vh; border: 5px solid #fff; 
+            box-shadow: 15px 15px 0px var(--spider-red), -15px -15px 0px var(--spider-blue);
+        }
+        .modal-caption { margin-top: 25px; text-align: center; color: #fff; }
+        .modal-title { font-family: 'Bangers'; font-size: 2.2rem; color: var(--spider-yellow); letter-spacing: 1px; text-shadow: 2px 2px 0px #000;}
+        .close { position: absolute; top: 20px; right: 30px; color: var(--spider-red); font-size: 4rem; cursor: pointer; font-family: 'Bangers'; z-index: 2001; transition: 0.3s;}
+        .close:hover { transform: rotate(90deg) scale(1.2); color: #fff; }
+
+        /* --- FOOTER FIX --- */
+        footer {
+            background: var(--card-bg); 
+            border-top: 5px solid var(--border-color); 
+            padding: 50px 20px;
+            text-align: center; 
+            width: 100%;
+            flex-shrink: 0; 
+            position: relative;
+            z-index: 50; 
+            background-image: repeating-linear-gradient(-45deg, transparent, transparent 5px, rgba(0,0,0,0.05) 5px, rgba(0,0,0,0.05) 10px);
+        }
+        .socials { font-size: 2.5rem; margin-bottom: 20px; }
+        .socials a { color: var(--text); margin: 0 20px; transition: 0.3s; display: inline-block;}
+        .socials a:hover { color: var(--spider-yellow); transform: translateY(-5px) rotate(10deg); text-shadow: 4px 4px 0px var(--spider-red); }
+
+        /* MOBILE RESPONSIVE FIX */
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; height: 100vh; width: 80%;
+                flex-direction: column; background: var(--card-bg);
+                justify-content: center; border-left: 4px solid var(--border-color);
+                transition: 0.4s ease-in-out; box-shadow: -10px 0 20px rgba(0,0,0,0.5); z-index: 999;
+            }
+            .nav-links.active { right: 0; }
+            .hero { grid-template-columns: 1fr; text-align: center; padding: 60px 0; }
+            .hero-title { font-size: 3.8rem; }
+            .bento-grid { grid-template-columns: 1fr; margin-top: 40px;}
+            .col-2, .row-2 { grid-column: auto; grid-row: auto; }
+            .gallery-grid { columns: 2 150px; }
+            .image-stack { display: none; } 
+            .socials a { margin: 0 10px; font-size: 2rem; }
+        }
+    </style>
+</head>
+<body class="loading">
+
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">SYSTEM LOADING...</div>
+    </div>
+
+    <div class="theme-btn" id="theme-btn" title="Ganti Mode">
+        <i class="fas fa-adjust"></i>
+    </div>
+
+    <nav class="navbar">
+        <div class="container nav-wrap">
+            <div class="logo glitch-text">BRODANZ</div>
+            
+            <div class="hamburger" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <div class="nav-links" id="navLinks">
+                <a href="https://youtube.com/@Akhdan_1209" target="_blank" title="YouTube" onclick="toggleMenu()"><i class="fab fa-youtube"></i></a>
+                <a href="https://instagram.com/akhdandanz_" target="_blank" title="Instagram" onclick="toggleMenu()"><i class="fab fa-instagram"></i></a>
+                <a href="https://tiktok.com/@dans_y.a" target="_blank" title="TikTok" onclick="toggleMenu()"><i class="fab fa-tiktok"></i></a>
+                <a href="https://roblox.com/@pc_danz" target="_blank" title="Roblox" onclick="toggleMenu()"><i class="fa-solid fa-gamepad"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="content-wrapper">
+        <div class="container">
+            <section class="hero reveal" id="profil">
+                <div>
+                    <div style="margin-bottom: 20px;">
+                        <span class="badge yellow">STUDENT</span>
+                        <span class="badge yellow">CREATOR</span>
+                        <span class="badge yellow">PROGRAMMER</span>
+                    </div>
+                    <h1 class="hero-title glitch-text">AKHDAN <br><span>YUDHISTIRA ADITA</span></h1>
+                    <p class="hero-desc">
+                        Halo! Saya Akhdan Yudhistira Adita (Brodanz), siswa kelas 9 yang memiliki passion besar di dunia teknologi, psikologi, dan sastra. Terus belajar untuk menciptakan karya yang tidak hanya berfungsi, tapi juga menginspirasi.
+                    </p>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; md:justify-content: start;">
+                        <a href="#galeri" class="btn">Lihat Karya</a>
+                        <a href="#karya" class="btn btn-outline">Baca Tulisan</a>
+                    </div>
+                </div>
+                
+                <div class="image-stack">
+                    <img src="images/freak2.jpg" class="stack-img" alt="Activity" onerror="this.src='https://placehold.co/300x400/111/fff?text=Foto+1';">
+                    <img src="images/bro.png" class="stack-img" alt="Profile" onerror="this.src='https://placehold.co/300x400/red/fff?text=Foto+2';">
+                </div>
+            </section>
+        </div>
+
+        <div style="background: var(--spider-yellow); color: #000; padding: 15px 0; overflow: hidden; border-top: 4px solid #000; border-bottom: 4px solid #000; white-space: nowrap; transform: rotate(-1deg) scale(1.02); margin-bottom: 40px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+            <marquee scrollamount="15" style="font-family: 'Bangers'; font-size: 2rem; letter-spacing: 2px;">
+                BRODANZ • WEB DEVELOPER • ONE PIECE FAN • ONE DIRECTION LISTENER &emsp;&emsp;&emsp;&emsp;&emsp; BRODANZ • WEB DEVELOPER • ONE PIECE FAN • ONE DIRECTION LISTENER •
+            </marquee>
+        </div>
+
+        <div class="container">
+            <div class="bento-grid">
+                <div class="comic-box col-2 reveal">
+                    <h3>🎓 Riwayat Pendidikan</h3>
+                    <div style="margin-top: 20px;">
+                        <div class="timeline-item">
+                            <div class="timeline-year">2016 - 2017</div>
+                            <div><strong>TK Mutiara Ummat</strong> <br> Langsung masuk tingkat B.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2017 - 2019</div>
+                            <div><strong>SDIT Salsabila</strong> <br> Hanya 2 tahun.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2019 - 2021</div>
+                            <div><strong>Ponpes Annihayah</strong> <br> Kelas 3 - 4 SD. Belajar kemandirian di pesantren.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2021 - 2023</div>
+                            <div><strong>MI Miftahul Amal</strong> <br> Akhir perjalanan SD.</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2023 - 2026</div>
+                            <div><strong>PTQ Iqro' Putra</strong> <br> Aktif dalam organisasi dan pengembangan diri.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comic-box row-2 reveal" style="background: var(--spider-red); color: #fff; border-color: #000; box-shadow: 8px 8px 0px var(--spider-blue);">
+                    <h3 style="color: var(--spider-yellow); text-shadow: 2px 2px 0px #000;">🏆 PENCAPAIAN</h3>
+                    <ul style="list-style: none; margin-top: 20px; font-weight: 700; font-size: 1.15rem; line-height: 2.2;">
+                        <li>🥉 Juara 3 Akademik (Kls 1)</li>
+                        <li>🥇 Juara 1 Akademik (Kls 3)</li>
+                        <li>🥉 Juara 3 Akademik (Kls 6)</li>
+                        <li>🥇 Medali Emas Lomba Bahasa Inggris (SMP)</li>
+                        <li>🥉 Medali Perunggu Lomba IPA (SMP)</li>
+                        <li>🥉 Medali Perunggu Lomba Matematika (SMP)</li>
+                        <li>💻 Membangun Personal Web</li>
+                    </ul>
+                </div>
+
+                <div class="comic-box reveal">
+                    <h3>❤️ Minat & Hobi</h3>
+                    <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px;">
+                        <span class="badge">Coding</span>
+                        <span class="badge">Game Dev</span>
+                        <span class="badge">Psychology</span>
+                        <span class="badge">Writing</span>
+                        <span class="badge">Swimming</span>
+                        <span class="badge">Roblox</span>
+                    </div>
+                </div>
+
+                <div class="comic-box col-2 reveal">
+                    <h3>🟢 Status Saat Ini</h3>
+                    <p style="margin-top: 20px; font-size: 1.1rem; line-height: 1.6;">
+                        <strong>Maret 2026:</strong> Sedang fokus mendalami budaya dan bahasa Jepang untuk persiapan program pertukaran pelajar, sembari mengasah skill web development.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container tabs-container reveal" id="karya">
+            <h2 class="comic-font" style="text-align: center; font-size: 4rem; margin-bottom: 10px; text-shadow: 4px 4px 0px var(--spider-red);">ISI KEPALA 💭</h2>
+            <div class="tabs-head">
+                <button class="tab-btn active" onclick="openTab('quotes', this)">QUOTES</button>
+                <button class="tab-btn" onclick="openTab('poems', this)">PUISI</button>
+            </div>
+            <div id="quotes" class="cards-grid tab-content"></div>
+            <div id="poems" class="cards-grid tab-content" style="display: none;"></div>
+        </div>
+
+        <div class="container gallery-wrap reveal" id="galeri">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
+                <h2 class="comic-font glitch-text" style="font-size: 4rem; line-height: 0.9;">PROJECT & <br><span style="color:var(--spider-blue)">VISUAL</span></h2>
+            </div>
+            <div class="gallery-grid" id="gallery-grid"></div>
+        </div>
+    </main>
+    <div id="imgModal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <div class="modal-content-wrap" onclick="event.stopPropagation()">
+            <img id="modalImg" src="">
+            <div class="modal-caption">
+                <div class="modal-title" id="modalTitle">Project Title</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="kontak">
+        <h2 class="comic-font" style="margin-bottom: 40px; font-size: 3.5rem;">Let's Connect!</h2>
+        <div class="socials">
+            <a href="https://youtube.com/@Akhdan_1209" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://instagram.com/akhdandanz_" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://tiktok.com/@dans_y.a" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://roblox.com/@pc_danz" title="Roblox"><i class="fa-solid fa-gamepad"></i></a>
+        </div>
+        <p style="font-weight: bold; opacity: 0.7; margin-top: 20px;">&copy; 2026 Brodanz Universe. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // --- 0. SMART LOADING SCREEN ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                document.body.classList.remove('loading');
+            }, 500); 
+        });
+
+        // --- SCROLL ANIMATION (REVEAL) ---
+        function revealOnScroll() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // Jarak trigger dari bawah
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", revealOnScroll);
+        // Trigger once on load
+        revealOnScroll();
+
+        // --- 1. THEME TOGGLE ---
+        const themeBtn = document.getElementById('theme-btn');
+        const root = document.documentElement;
+        
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        root.setAttribute('data-theme', savedTheme);
+
+        themeBtn.addEventListener('click', () => {
+            const current = root.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            
+            themeBtn.style.transform = 'scale(0.9) rotate(180deg)';
+            setTimeout(() => themeBtn.style.transform = '', 300);
+        });
+
+        // --- MOBILE MENU LOGIC ---
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            nav.classList.toggle('active');
+        }
+
+        // --- 2. DATA CONTENT ---
+        const quotesData = [
+            "Menjadi orang yang disiplin memang sulit, tetapi lebih sulit lagi jika engkau sedang bersaing dengan orang-orang yang berpegang teguh pada nilai kedisiplinan.",
+            "Engkau harus lambat dalam mempertimbangkan suatu hal dan cepat dalam melaksanakannya.",
+            "Di dunia ini memang tak ada yang sempurna, tapi setidaknya berusahalah untuk mendekati kata sempurna.",
+            "Dengan banyaknya persamaan, kita bisa saling memahami. Dengan banyaknya perbedaan, kita bisa saling melengkapi.",
+            "Rasa sakit yang disebabkan oleh kedisiplinan lebih baik daripada rasa sakit yang disebabkan oleh penyesalan.",
+            "Jangan biarkan ekspresi wajahmu membocorkan rahasiamu."
+        ];
+
+        const poemsData = [
+            { title: "Didik", content: "Pendidikan...\nSemua orang membutuhkannya,\nTapi tak semua diberi kesempatan untuk memilikinya.\nKarena hidup bukan soal seberapa tinggi gelar,\nTapi seberapa besar tekad untuk terus belajar." },
+            { title: "Hujan", content: "Hujan Deras Membungkus Kota.\nJutaan Tetes Air Berjatuhan.\nKebanyakan Penduduk Bumi Memilih Menghindarinya.\nTetapi Aku, Memilih Untuk Menangis Bersamanya." },
+            { title: "Sempurna", content: "Sempurna…\nSejauh Apapun Engkau Mencarinya,\nTakkan Bisa Kau Menemuinya.\nTapi Setidaknya, Kita Bisa Mendekatinya." },
+            { title: "Pergi", content: "Tujuh benua telah kutapaki,\nSegala batas telah kulewati demi satu tujuan.\nNamun pada akhirnya aku mengerti,\nBahwa dia... Telah memilih untuk tak kembali." }
+        ];
+
+        // --- 3. GALLERY DATA (CLEANED) ---
+        const galleryData = [
+            { src: "images/a1.jpg", title: "Look At Me!" },
+            { src: "images/a2.jpg", title: "Let Me Think" },
+            { src: "images/a3.jpg", title: "Jogja Vibe" },
+            { src: "images/b1.jpg", title: "Understated" },
+            { src: "images/b2.jpg", title: "Listen to 1D Music" },
+            { src: "images/b3.jpg", title: "Bro" },
+            { src: "images/a4.jpg", title: "Nice 👍" },
+            { src: "images/a5.jpg", title: "Swastamita Boy" },
+            { src: "images/a6.jpg", title: "Photography 📷" },
+            { src: "images/a7.jpg", title: "Effortless" },
+            { src: "images/a8.jpg", title: "No-Face" },
+            { src: "images/a9.jpg", title: "V-Face" },
+            { src: "images/a10.jpg", title: "Let Him Cook..." },
+            { src: "images/a11.jpg", title: "Mirror" },
+        ];
+
+        function renderContent() {
+            const qBox = document.getElementById('quotes');
+            qBox.innerHTML = quotesData.map(q => `
+                <div class="art-card quote">
+                    <p class="art-content">"${q}"</p>
+                    <p class="art-author comic-font">— Brodanz</p>
+                </div>
+            `).join('');
+
+            const pBox = document.getElementById('poems');
+            pBox.innerHTML = poemsData.map(p => `
+                <div class="art-card poem">
+                    <h3 class="comic-font" style="margin-bottom:15px; font-size:1.5rem;">${p.title}</h3>
+                    <div class="art-content" style="white-space: pre-line; font-size:1rem;">${p.content}</div>
+                    <div class="art-author comic-font">— Brodanz</div>
+                </div>
+            `).join('');
+        }
+
+        window.openTab = function(id, btn) {
+            document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+            document.getElementById(id).style.display = 'grid';
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+        };
+
+        window.renderGallery = function() {
+            const container = document.getElementById('gallery-grid');
+            container.innerHTML = '';
+            
+            galleryData.forEach(item => {
+                const img = document.createElement('img');
+                img.src = item.src;
+                img.onerror = function() { this.src = 'https://placehold.co/300x400/333/fff?text=Project'; };
+                img.className = 'gallery-img';
+                img.onclick = () => openModal(item);
+                
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                div.appendChild(img);
+                container.appendChild(div);
+            });
+        };
+
+        const modal = document.getElementById('imgModal');
+
+        window.openModal = function(item) {
+            document.getElementById('modalImg').src = item.src;
+            document.getElementById('modalTitle').innerText = item.title;
+            // Tombol link dihapus
+            modal.style.display = 'flex';
+        }
+        
+        window.closeModal = function() {
+            modal.style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderContent();
+            renderGallery();
+        });
+    </script>
+</body>
+</html>
