@@ -554,7 +554,7 @@
             "Di dunia ini memang tak ada yang sempurna, tapi setidaknya berusahalah untuk mendekati kata sempurna.",
             "Dengan banyaknya persamaan, kita bisa saling memahami. Dengan banyaknya perbedaan, kita bisa saling melengkapi.",
             "Rasa sakit yang disebabkan oleh kedisiplinan lebih baik daripada rasa sakit yang disebabkan oleh penyesalan karena tidak disiplin.",
-            "Jangan biarkan ekspresi wajahmu membocorkan rahasiamu."
+            "Jangan biarkan ekspresi wajahmu membocorkan rahasiamu.", // <-- PERBAIKAN: Tambah koma di sini
             "Jangan pikirkan apa yang orangtua bisa berikan kepadamu, tapi pikirkanlah apa yang bisa engkau lakukan untuknya."
         ];
 
@@ -637,16 +637,10 @@
             modal.style.display = 'none';
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            renderContent();
-            renderGallery();
-        });
+        // --- PERBAIKAN: Menjalankan fungsi agar data muncul di layar ---
+        renderContent();
+        renderGallery();
+
     </script>
 </body>
-
 </html>
-
-
-
-
-
