@@ -356,6 +356,8 @@
             </div>
 
             <div class="nav-links" id="navLinks">
+                <a href="#games" title="Games" onclick="toggleMenu()" style="color: var(--spider-red);">GAMES</a>
+                
                 <a href="https://youtube.com/@Akhdan_1209" target="_blank" title="YouTube" onclick="toggleMenu()"><i class="fab fa-youtube"></i></a>
                 <a href="https://instagram.com/akhdandanz_" target="_blank" title="Instagram" onclick="toggleMenu()"><i class="fab fa-instagram"></i></a>
                 <a href="https://tiktok.com/@dans_y.a" target="_blank" title="TikTok" onclick="toggleMenu()"><i class="fab fa-tiktok"></i></a>
@@ -458,6 +460,32 @@
             </div>
         </div>
 
+        <div class="container reveal" id="games" style="margin-top: 100px;">
+            <h2 class="comic-font glitch-text" style="text-align: center; font-size: 4rem; margin-bottom: 40px; text-shadow: 4px 4px 0px var(--spider-purple);">MY GAMES 🎮</h2>
+            
+            <div class="cards-grid">
+                <div class="comic-box" style="text-align: center; padding: 20px;">
+                    <img src="https://placehold.co/400x250/111/fff?text=Thumbnail+Blox+Dash" alt="Blox Dash" style="width: 100%; height: 200px; object-fit: cover; border: 3px solid var(--border-color); margin-bottom: 15px;">
+                    <h3 style="font-size: 2.2rem; color: var(--spider-red); margin-bottom: 15px;">BLOX DASH</h3>
+                    <p style="margin-bottom: 20px; font-size: 1rem; opacity: 0.8;">Lari dan hindari rintangan secepat mungkin!</p>
+                    <a href="#" target="_blank" class="btn" style="width: 100%;">MAINKAN GAME</a>
+                </div>
+
+                <div class="comic-box" style="text-align: center; padding: 20px; border-color: var(--spider-blue); box-shadow: 8px 8px 0px var(--spider-blue);">
+                    <img src="https://placehold.co/400x250/111/fff?text=Thumbnail+Blox+Battle" alt="Blox Battle" style="width: 100%; height: 200px; object-fit: cover; border: 3px solid var(--border-color); margin-bottom: 15px;">
+                    <h3 style="font-size: 2.2rem; color: var(--spider-blue); margin-bottom: 15px;">BLOX BATTLE</h3>
+                    <p style="margin-bottom: 20px; font-size: 1rem; opacity: 0.8;">Bertarung dan jadilah yang terkuat di arena!</p>
+                    <a href="#" target="_blank" class="btn" style="width: 100%;">MAINKAN GAME</a>
+                </div>
+
+                <div class="comic-box" style="text-align: center; padding: 20px; border-color: var(--spider-yellow); box-shadow: 8px 8px 0px var(--spider-yellow);">
+                    <img src="https://placehold.co/400x250/111/fff?text=Thumbnail+Blox+Racing" alt="Blox Racing" style="width: 100%; height: 200px; object-fit: cover; border: 3px solid var(--border-color); margin-bottom: 15px;">
+                    <h3 style="font-size: 2.2rem; color: var(--spider-yellow); text-shadow: 1px 1px 0px #000; margin-bottom: 15px;">BLOX RACING</h3>
+                    <p style="margin-bottom: 20px; font-size: 1rem; opacity: 0.8;">Balapan seru dengan lintasan yang menantang!</p>
+                    <a href="#" target="_blank" class="btn" style="width: 100%; background: var(--spider-yellow); color: #000;">MAINKAN GAME</a>
+                </div>
+            </div>
+        </div>
         <div class="container tabs-container reveal" id="karya">
             <h2 class="comic-font" style="text-align: center; font-size: 4rem; margin-bottom: 10px; text-shadow: 4px 4px 0px var(--spider-red);">ISI KEPALA 💭</h2>
             <div class="tabs-head">
@@ -554,7 +582,7 @@
             "Di dunia ini memang tak ada yang sempurna, tapi setidaknya berusahalah untuk mendekati kata sempurna.",
             "Dengan banyaknya persamaan, kita bisa saling memahami. Dengan banyaknya perbedaan, kita bisa saling melengkapi.",
             "Rasa sakit yang disebabkan oleh kedisiplinan lebih baik daripada rasa sakit yang disebabkan oleh penyesalan karena tidak disiplin.",
-            "Jangan biarkan ekspresi wajahmu membocorkan rahasiamu.", // <-- PERBAIKAN: Tambah koma di sini
+            "Jangan biarkan ekspresi wajahmu membocorkan rahasiamu.",
             "Jangan pikirkan apa yang orangtua bisa berikan kepadamu, tapi pikirkanlah apa yang bisa engkau lakukan untuknya."
         ];
 
@@ -562,7 +590,7 @@
             { title: "Hujan", content: "Hujan deras membungkus kota.\nJutaan tetes air berjatuhan.\nTak ada keramaian sejauh mata memandang.\nHanya ada keheningan sejauh telinga mendengar.\nAku menatap ke arah awan kelabu,\nYang tak kuasa menahan tangis.\nKebanyakan penduduk bumi,\nMemilih untuk menghindarinya.\nTetapi aku,\nMemilih untuk menangis bersamanya." }
         ];
 
-        // --- 3. GALLERY DATA (CLEANED) ---
+        // --- 3. GALLERY DATA ---
         const galleryData = [
             { src: "https://github.com/Brodanz-pc/Brodanz/blob/main/a1.jpg?raw=true", title: "Look At Me!" },
             { src: "https://github.com/Brodanz-pc/Brodanz/blob/main/a2.jpg?raw=true", title: "Let Me Think" },
@@ -624,24 +652,23 @@
             });
         };
 
+        // --- Modal & Tombol Link Logic Fix ---
         const modal = document.getElementById('imgModal');
 
         window.openModal = function(item) {
             document.getElementById('modalImg').src = item.src;
             document.getElementById('modalTitle').innerText = item.title;
-            // Tombol link dihapus
             modal.style.display = 'flex';
-        }
-        
+        };
+
         window.closeModal = function() {
             modal.style.display = 'none';
-        }
+        };
 
-        // --- PERBAIKAN: Menjalankan fungsi agar data muncul di layar ---
+        // Render isi konten web pas halaman diload
         renderContent();
-        renderGallery();
+        window.renderGallery();
 
     </script>
 </body>
 </html>
-
