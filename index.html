@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id" data-theme="dark">
 <head>
@@ -361,7 +362,7 @@
                 <a href="https://youtube.com/@Akhdan_1209" target="_blank" title="YouTube" onclick="toggleMenu()"><i class="fab fa-youtube"></i></a>
                 <a href="https://instagram.com/akhdandanz_" target="_blank" title="Instagram" onclick="toggleMenu()"><i class="fab fa-instagram"></i></a>
                 <a href="https://tiktok.com/@dans_y.a" target="_blank" title="TikTok" onclick="toggleMenu()"><i class="fab fa-tiktok"></i></a>
-                <a href="https://discord.com/@0nly_danz" target="_blank" title="Discord" onclick="toggleMenu()"><i class="fa-solid fa-discord"></i></a>
+                <a href="https://discord.com/@0nly_danz" target="_blank" title="Discord" onclick="toggleMenu()"><i class="fab fa-discord"></i></a>
             </div>
         </div>
     </nav>
@@ -480,7 +481,7 @@
 
                 <div class="comic-box" style="text-align: center; padding: 20px; border-color: var(--spider-yellow); box-shadow: 8px 8px 0px var(--spider-yellow);">
                     <img src="https://github.com/Brodanz-pc/Brodanz/blob/main/g3.jpg?raw=true" alt="Blox Racing" style="width: 100%; height: 200px; object-fit: cover; border: 3px solid var(--border-color); margin-bottom: 15px;">
-                    <h3 style="font-size: 2.2rem; color: var(--spider-yellow); text-shadow: 1px 1px 0px #000; margin-bottom: 15px;">BLOX RACING</h3>
+                    <h3 style="font-size: 2.2rem; color: var(--spider-yellow); text-shadow: 1px 1px 0px #000; margin-bottom: 15px;">BLOX DRIFT</h3>
                     <p style="margin-bottom: 20px; font-size: 1rem; opacity: 0.8;">Balapan seru dengan lintasan yang menantang!</p>
                     <a href="https://brodanz-pc.github.io/Bloxdrift/" target="_blank" class="btn" style="width: 100%; background: var(--spider-yellow); color: #000;">MAINKAN GAME</a>
                 </div>
@@ -519,7 +520,7 @@
             <a href="https://youtube.com/@Akhdan_1209" title="YouTube"><i class="fab fa-youtube"></i></a>
             <a href="https://instagram.com/akhdandanz_" title="Instagram"><i class="fab fa-instagram"></i></a>
             <a href="https://tiktok.com/@dans_y.a" title="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a href="https://discord.com/@0nly_danz" title="Discord"><i class="fa-solid fa-discord"></i></a>
+            <a href="https://discord.com/@0nly_danz" title="Discord"><i class="fab fa-discord"></i></a>
         </div>
         <p style="font-weight: bold; opacity: 0.7; margin-top: 20px;">&copy; 2026 Brodanz Universe. All Rights Reserved.</p>
     </footer>
@@ -592,7 +593,7 @@
             { title: "Tentang Kamu", content: "Secercah ingatan tentang dirimu.\nBegitu melekat di dalam pikiranku.\nTatapanmu yang memikat,\nMembuat diriku membeku,\nUntuk sesaat,\nWaktu berhenti karena dirimu,\n\nTerlalu mustahil untuk melupakanmu.\nKarena engkau,\nSudah menjadi bagian dari hidupku,\nKu ingin selalu berada di sisimu,\ndan menghabiskan waktu bersamamu.\n\nTetapi pada akhirnya…\nKuharap engkau tahu,\nbahwa aku merindukanmu setiap waktu." }
         ];
 
-        // --- 3. GALLERY DATA ---
+       // --- 3. GALLERY DATA ---
         const galleryData = [
             { src: "https://github.com/Brodanz-pc/Brodanz/blob/main/a1.jpg?raw=true", title: "Look At Me!" },
             { src: "https://github.com/Brodanz-pc/Brodanz/blob/main/a2.jpg?raw=true", title: "Let Me Think" },
@@ -612,75 +613,48 @@
             { src: "https://github.com/Brodanz-pc/Brodanz/blob/main/a13.jpg?raw=true", title: "Blinding Light" },
         ];
 
-        function renderContent() {
-            const qBox = document.getElementById('quotes');
-            qBox.innerHTML = quotesData.map(q => `
-                <div class="art-card quote">
-                    <p class="art-content">"${q}"</p>
-                    <p class="art-author comic-font">— Brodanz</p>
-                </div>
-            `).join('');
 
-            const pBox = document.getElementById('poems');
-            pBox.innerHTML = poemsData.map(p => `
-                <div class="art-card poem">
-                    <h3 class="comic-font" style="margin-bottom:15px; font-size:1.5rem;">${p.title}</h3>
-                    <div class="art-content" style="white-space: pre-line; font-size:1rem;">${p.content}</div>
-                    <div class="art-author comic-font">— Brodanz</div>
-                </div>
-            `).join('');
+        // --- 4. RENDER DATA ---
+        const quotesContainer = document.getElementById('quotes');
+        quotesData.forEach(q => {
+            quotesContainer.innerHTML += `<div class="art-card quote"><div class="art-content">"${q}"</div></div>`;
+        });
+
+        const poemsContainer = document.getElementById('poems');
+        poemsData.forEach(p => {
+            poemsContainer.innerHTML += `<div class="art-card poem"><h3 style="font-family:'Bangers'; font-size:1.5rem; margin-bottom:10px; color:var(--spider-purple);">${p.title}</h3><div class="art-content" style="white-space: pre-line;">${p.content}</div></div>`;
+        });
+
+        const galleryContainer = document.getElementById('gallery-grid');
+        galleryData.forEach(item => {
+            galleryContainer.innerHTML += `
+            <div class="gallery-item" onclick="openModal('${item.src}', '${item.title}')">
+                <img src="${item.src}" class="gallery-img" alt="${item.title}">
+            </div>`;
+        });
+
+        // --- TABS LOGIC ---
+        function openTab(tabName, btn) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.style.display = 'none');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabName).style.display = 'grid';
+            btn.classList.add('active');
         }
 
-        window.openTab = function(id, btn) {
-            document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
-            document.getElementById(id).style.display = 'grid';
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            btn.classList.add('active');
-        };
+        // --- MODAL LOGIC ---
+        const modal = document.getElementById("imgModal");
+        const modalImg = document.getElementById("modalImg");
+        const modalTitle = document.getElementById("modalTitle");
 
-        window.renderGallery = function() {
-            const container = document.getElementById('gallery-grid');
-            container.innerHTML = '';
-            
-            galleryData.forEach(item => {
-                const img = document.createElement('img');
-                img.src = item.src;
-                img.onerror = function() { this.src = 'https://placehold.co/300x400/333/fff?text=Project'; };
-                img.className = 'gallery-img';
-                img.onclick = () => openModal(item);
-                
-                const div = document.createElement('div');
-                div.className = 'gallery-item';
-                div.appendChild(img);
-                container.appendChild(div);
-            });
-        };
+        function openModal(src, title) {
+            modal.style.display = "flex";
+            modalImg.src = src;
+            modalTitle.innerText = title;
+        }
 
-        // --- Modal & Tombol Link Logic Fix ---
-        const modal = document.getElementById('imgModal');
-
-        window.openModal = function(item) {
-            document.getElementById('modalImg').src = item.src;
-            document.getElementById('modalTitle').innerText = item.title;
-            modal.style.display = 'flex';
-        };
-
-        window.closeModal = function() {
-            modal.style.display = 'none';
-        };
-
-        // Render isi konten web pas halaman diload
-        renderContent();
-        window.renderGallery();
-
+        function closeModal() {
+            modal.style.display = "none";
+        }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
